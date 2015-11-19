@@ -45,19 +45,12 @@ ac<-c("Walking","Walking_Upstairs","Walking_Downstairs","Sitting","Standing","La
 for(i in 1:6){
 data$activity_lables<-gsub(i,ac[i],data$activity_lables)
 }
+setwd(oldpath)
 library(dplyr)
 data_final<-data%>%group_by(activity_lables,subject) %>% summarise_each(funs(mean(.,na.rm=TRUE)))
 
+#Write the data
 
-#setwd("Inertial\ Signals")
-#filenames<-list.files()
-#body_acc_x_train<-read.table(filenames[1],header = FALSE, sep = "")
-#body_acc_y_train<-read.table(filenames[2],header = FALSE, sep = "")
-#body_acc_z_train<-read.table(filenames[3],header = FALSE, sep = "")
-#body_gyro_x_train<-read.table(filenames[4],header = FALSE, sep = "")
-#body_gyro_y_train<-read.table(filenames[5],header = FALSE, sep = "")
-#body_gyro_z_train<-read.table(filenames[6],header = FALSE, sep = "")
-#total_acc_x_train<-read.table(filenames[7],header = FALSE, sep = "")
-#total_acc_y_train<-read.table(filenames[8],header = FALSE, sep = "")
-#total_acc_z_train<-read.table(filenames[9],header = FALSE, sep = "")
+write.table(data_final,row.names = FALSE,file="data_final.txt")
+
 
